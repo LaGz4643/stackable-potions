@@ -1,4 +1,4 @@
-package lagz;
+package lagz.stackable_potions;
 
 import net.fabricmc.api.ModInitializer;
 
