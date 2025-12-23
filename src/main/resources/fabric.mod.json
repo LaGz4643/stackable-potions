@@ -1,0 +1,24 @@
+{
+	"schemaVersion": 1,
+	"id": "stackable_potions",
+	"version": "${version}",
+	"name": "Stackable Potions",
+	"description": "Makes potions stack to 16.",
+	"authors": [
+		"LaGz"
+	],
+	"license": "MIT",
+	"icon": "assets/stackable_potions/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"lagz.StackablePotions"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.18.3",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
