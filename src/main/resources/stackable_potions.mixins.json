@@ -3,6 +3,7 @@
   "package": "lagz.stackable_potions.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "ItemCooldownsMixin",
     "ItemStackMixin"
   ],
   "injectors": {
