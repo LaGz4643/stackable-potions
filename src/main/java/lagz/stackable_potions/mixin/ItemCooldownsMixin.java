@@ -5,10 +5,14 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import lagz.stackable_potions.StackablePotions;
 import lagz.stackable_potions.util.ThrowablePotionType;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ThrowablePotionItem;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionContents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -23,7 +27,13 @@ public class ItemCooldownsMixin {
                 && instance
                 .filter(StackablePotions.THROWABLE_POTION_COOLDOWN_GROUP::equals)
                 .isPresent()) {
-            return ThrowablePotionType.getCooldownGroup(throwablePotionItem, itemstack);
+            Optional<Potion> potion = itemstack
+                    .getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY)
+                    .potion()
+                    .map(Holder::value);
+            if (potion.filter(Potion::hasInstantEffects).isPresent()) {
+                return ThrowablePotionType.getCooldownGroup(throwablePotionItem, potion.get());
+            }
         }
         return original.call(instance, otherIdentifier);
     }
